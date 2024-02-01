@@ -2,17 +2,18 @@ import streamlit as st
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
+
 # Load your trained model
-model = load_model(r'C:\Users\Dell 5470\Desktop\Pan Detection Using Streamlit\models\Panto.h5')  # Replace 'your_model_path.h5' with the actual path to your model file
+model = load_model(r'C:\Users\Dell 5470\OneDrive\Desktop\Pan Detection Using Streamlit\models\Pandas.h5')  # Replace 'your_model_path.h5' with the actual path to your model file
 
 def main():
     st.title("Pan Card Detection App")
 
-    uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         # Read the uploaded image
-        image = cv2.imdecode(np.fromstring(uploaded_file.read(), np.uint8), 1)
+        image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), 1)
 
         # Display the original image
         st.image(image, caption="Uploaded Image", use_column_width=True)
@@ -34,5 +35,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
